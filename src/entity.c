@@ -98,7 +98,7 @@ void entity_manager_update_entities()
                 }
                 if (strcmp(entity_manager.entity_list[i].pickup_type, "restoreHealth") == 0)
                 {
-                    if(entity_manager.entity_list[playerIndex].health < 3)entity_manager.entity_list[playerIndex].health = entity_manager.entity_list[playerIndex].maxHealth;
+                    entity_manager.entity_list[playerIndex].health = entity_manager.entity_list[playerIndex].maxHealth;
                 }
                 if (strcmp(entity_manager.entity_list[i].pickup_type, "normal") == 0)
                 {
