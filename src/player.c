@@ -18,12 +18,12 @@ Entity *player_spawn(Vector2D position)
         slog("failed to create entity for the player");
         return NULL;
     }
-    ent->sprite = gf2d_sprite_load_all("images/ed210_top.png",128,128,16);
+    ent->sprite = gf2d_sprite_load_all("images/lr_penguin2_128x128x8.png",128,128,8);
     vector2d_copy(ent->position,position);
     ent->rect.h = 128;
     ent->rect.w = 128;
     ent->frameRate = 0.1;
-    ent->frameCount = 16;
+    ent->frameCount = 8;
     ent->update = player_update;
     ent->think = player_think;
     ent->rotation.x = 64;
