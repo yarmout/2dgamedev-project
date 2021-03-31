@@ -57,4 +57,11 @@ gf2d
 #logs
 *.log
 
+#CLion
+CMakeCache.txt
+CMakeFiles
+Makefile
+*.cbp
+cmake_install.cmake
+
 makefile.dep
