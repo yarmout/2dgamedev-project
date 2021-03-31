@@ -16,7 +16,8 @@ typedef struct Entity_s
     Vector2D    velocity;
     Vector3D    rotation; //(x,y) = rotation center, z = degrees of rotation
     Sprite     *sprite;
-    int         HP;
+    int         health;
+    int         maxHealth;
     char       *pickup_type;
     char       *current_pickup;
     int         number_of_collectables;

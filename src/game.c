@@ -94,7 +94,7 @@ int main(int argc, char * argv[])
                 (int)mf);
 
         //Current game
-        gfc_line_sprintf(hp_text, "Current HP: %i", player.HP);
+        gfc_line_sprintf(hp_text, "Current health: %i", player.health);
         gfc_line_sprintf(powerup_text, "Current power-up: %s", player.current_pickup);
         gfc_line_sprintf(collectables_text, "# of fish collected: %i", player.number_of_collectables);
         if (player.collectableRare)gfc_line_sprintf(rare_collectable_text, "Rare fish found!", player.collectableRare);
@@ -104,7 +104,7 @@ int main(int argc, char * argv[])
         if (game_data)
         {
             gfc_line_sprintf(previous_game_text, "Previous game score:");
-            gfc_line_sprintf(previous_hp_text, "Current HP: %i", game_data[1]);
+            gfc_line_sprintf(previous_hp_text, "Current health: %i", game_data[1]);
             gfc_line_sprintf(previous_collectables_text, "# of fish collected: %i", game_data[0]);
             if (game_data[2] == 1)gfc_line_sprintf(previous_rare_collectable_text, "Rare fish found!", player.collectableRare);
             else gfc_line_sprintf(previous_rare_collectable_text, "Rare fish not yet found!", player.collectableRare);

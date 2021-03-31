@@ -6,7 +6,7 @@ void save_game(Entity player)
     FILE * file_pointer;
 
     file_pointer = fopen ("saves/lastgame.save", "w");
-    fprintf(file_pointer, "{ \"fishCollected\": %i, \"HP\": %i, \"rareFish\": %i}", player.number_of_collectables, player.HP, player.collectableRare);
+    fprintf(file_pointer, "{ \"fishCollected\": %i, \"health\": %i, \"rareFish\": %i}", player.number_of_collectables, player.health, player.collectableRare);
 
     fclose(file_pointer);
 }
@@ -31,10 +31,10 @@ int *load_game(int *game_data)
     sj_get_integer_value(fishCollectedJson, &fishCollected);
     game_data[0] = fishCollected;
 
-    HPJson = sj_object_get_value(save, "HP");
+    HPJson = sj_object_get_value(save, "health");
     if (!HPJson)
     {
-        slog("save missing HP object");
+        slog("save missing health object");
         sj_free(save);
         return NULL;
     }

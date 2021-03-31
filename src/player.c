@@ -32,7 +32,8 @@ Entity *player_spawn(Vector2D position)
     ent->pickup = false;
     ent->current_pickup = "";
     ent->number_of_collectables = 0;
-    ent->HP = 3;
+    ent->health = 3;
+    ent->maxHealth = 3;
     return ent;
 }
 
