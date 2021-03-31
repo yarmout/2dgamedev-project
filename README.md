@@ -1,8 +1,9 @@
 # Penguin Race
+You are a penguin sledding down a hill, collect fish and avoid any obstacles along the way!
 ## All features
 ### Game Rules
 1. There'll be obstacles along the way, make sure to avoid them!
-2. You have 3 HP, hitting an obstacle will make you loose 1 hp.
+2. You have 3 HP, hitting any obstacles will make you lose 1 hp.
 ### Controls
 1. Move faster with W
 2. Move slower with S
