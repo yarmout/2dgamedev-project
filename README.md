@@ -1,4 +1,4 @@
-# 2dgamedev-midterm
+# Penguin Race
 ## All features
 ### Controls
 1. Move faster with W
