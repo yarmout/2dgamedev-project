@@ -64,4 +64,7 @@ Makefile
 *.cbp
 cmake_install.cmake
 
+#Etc
+*.save
+
 makefile.dep
