@@ -28,7 +28,7 @@
 
 *   **Sprint 1 - Prototype**: The base of the app is the core game functionality will be implemented. This version will be unpolished and will function more of a prototype and game’s core mechanics.
 *   **Sprint 2 - MVP (Goal: Finish by May 5th):** Building on the Sprint 1, this version will feature a more fleshed out version of the game. The levels will feel more complete, and the game will have features implemented such as unlockable characters, a level selector, secret levels, different interactions with obstacles, and an in-game level creator.
-*   **Sprint 3 - Polish (Due date: May 12):** This version of the game will be a more polished version of the MVP. Any unused code or libraries will be removed, art assets will be finalized, music and sound effects will be finalized, and a level of beautification to the game will be applied. These will be simple finishing touches.
+*   **Sprint 3 - Polish (Due date: May 12th):** This version of the game will be a more polished version of the MVP. Any unused code or libraries will be removed, art assets will be finalized, music and sound effects will be finalized, and a level of beautification to the game will be applied. These will be simple finishing touches.
 
 
 ### 4. Sprint 2 User Stories
