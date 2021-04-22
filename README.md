@@ -7,9 +7,9 @@
 
 
 
-*   **Deliverable:** The aim is to deliver a 2D top-down scrolling video game about a penguin sledding down a slope. Avoid obstacles, collect fish, and unlock playable characters along the way!
-*   **Motivation** I think a penguin sledding game is a pretty fun and simple idea. I wanted something more wholesome in contrast to the action-packed video games that make up a large part of the market.
-*   **Technical Approach** The game will be built entirely in C and will use the SDL2 library. It will be built on the 2D game engine framework we’ve been learning in class. [https://github.com/engineerOfLies/gameframework2d](https://github.com/engineerOfLies/gameframework2d) The game will feature open-source art assets from online sources such as [https://opengameart.org/](https://opengameart.org/)
+*   **Deliverable:** The goal is to deliver a 2D top-down scrolling video game about a penguin sledding down a slope. Avoid obstacles, collect fish, and unlock playable characters along the way!
+*   **Motivation:** I think a penguin sledding game is a pretty fun and simple idea. I wanted something more wholesome in contrast to the action-packed video games that make up a large part of the market.
+*   **Technical Approach:** The game will be built entirely in C and will use the SDL2 library. It will be built on the 2D game engine framework we’ve been learning in class. [https://github.com/engineerOfLies/gameframework2d](https://github.com/engineerOfLies/gameframework2d) The game will feature open-source art assets from online sources such as [https://opengameart.org/](https://opengameart.org/)
 
 
 ### 2. Dependencies & Risks
