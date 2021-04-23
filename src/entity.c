@@ -93,11 +93,12 @@ void entity_manager_update_entities()
                 if (strcmp(entity_manager.entity_list[i].pickup_type, "extraLife") == 0)
                 {
 
-                    entity_manager.entity_list[playerIndex].HP += 1;
+                    entity_manager.entity_list[playerIndex].health += 1;
+                    entity_manager.entity_list[playerIndex].maxHealth += 1;
                 }
                 if (strcmp(entity_manager.entity_list[i].pickup_type, "restoreHealth") == 0)
                 {
-                    if(entity_manager.entity_list[playerIndex].HP < 3)entity_manager.entity_list[playerIndex].HP = 3;
+                    entity_manager.entity_list[playerIndex].health = entity_manager.entity_list[playerIndex].maxHealth;
                 }
                 if (strcmp(entity_manager.entity_list[i].pickup_type, "normal") == 0)
                 {
@@ -117,7 +118,7 @@ void entity_manager_update_entities()
             {
                 entity_manager.entity_list[i].rect.x = 5000;
                 entity_manager.entity_list[i].rect.y = 5000;
-                entity_manager.entity_list[playerIndex].HP -= 1;
+                entity_manager.entity_list[playerIndex].health -= 1;
             }
         }
     }
