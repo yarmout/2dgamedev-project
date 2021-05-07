@@ -69,3 +69,4 @@ cmake_install.cmake
 
 makefile.dep
 /cmake-build-debug/
+saves/lastgame.save
