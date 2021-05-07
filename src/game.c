@@ -18,6 +18,8 @@ int main(int argc, char * argv[])
     /*variable declarations*/
     int done = 0;
     int i;
+    int fullscreen = 0;
+    int debug = 0;
     const Uint8 * keys;
     Level *level;
     Font *font;
@@ -37,13 +39,14 @@ int main(int argc, char * argv[])
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
     gf2d_graphics_initialize(
-        "gf2d",
-        1200,
-        720,
-        1200,
-        720,
-        vector4d(0,0,0,255),
-        0);
+            "gf2d",
+            1200,
+            720,
+            1200,
+            720,
+            vector4d(0,0,0,255),
+            fullscreen,
+            debug);
     gf2d_graphics_set_frame_delay(16);
     camera_set_dimensions(vector2d(1200,720));
     camera_set_position(vector2d(0,0));
@@ -55,7 +58,7 @@ int main(int argc, char * argv[])
     SDL_ShowCursor(SDL_DISABLE);
     
     /*demo setup*/
-    mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16);
+    mouse = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
     level = level_load("levels/a_level.json");
     player_spawn(vector2d(0,512));
     font = font_load("fonts/Roboto-MediumItalic.ttf",16);
@@ -81,7 +84,7 @@ int main(int argc, char * argv[])
             level_draw(level);
             
             entity_manager_draw_entities();
-            
+
             //UI elements last
             gf2d_sprite_draw(
                 mouse,

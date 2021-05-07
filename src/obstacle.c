@@ -15,7 +15,7 @@ Entity *obstacle_spawn(Vector2D position, char *sprite_filename, float frameWidt
         slog("failed to create entity for the obstacle");
         return NULL;
     }
-    ent->sprite = gf2d_sprite_load_all(sprite_filename,frameWidth,frameHeight,framesPerLine);
+    ent->sprite = gf2d_sprite_load_all(sprite_filename,frameWidth,frameHeight,framesPerLine,0);
     vector2d_copy(ent->position,position);
     ent->rect.x = position.x;
     ent->rect.y = position.y;

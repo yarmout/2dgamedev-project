@@ -87,7 +87,8 @@ Level *level_load(const char *filename)
             (char *)string,
             level->tileWidth,
             level->tileHeight,
-            level->tileFPL);
+            level->tileFPL,
+            0);
     }
     //Read tile map/level map
     levelMap = sj_object_get_value(levelJS,"tileMap");
