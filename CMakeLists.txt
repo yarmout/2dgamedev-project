@@ -49,6 +49,6 @@ add_executable(gameframework2d
         src/player.c
         src/obstacle.c
         src/pickup.c
-        src/saves.c src/gf2d_windows.c include/gf2d_windows.h src/gf2d_shape.c include/gf2d_shape.h src/gf2d_config.c include/gf2d_config.h src/gf2d_mouse.c include/gf2d_mouse.h src/gf2d_actor.c include/gf2d_actor.h src/gf2d_elements.c include/gf2d_elements.h src/gf2d_element_actor.c include/gf2d_element_actor.h src/gf2d_element_button.c include/gf2d_element_button.h src/gf2d_element_entry.c include/gf2d_element_entry.h src/gf2d_element_label.c include/gf2d_element_label.h src/gf2d_font.c src/gf2d_font.h src/gf2d_element_list.c include/gf2d_element_list.h)
+        src/saves.c src/gf2d_windows.c include/gf2d_windows.h src/gf2d_shape.c include/gf2d_shape.h src/gf2d_config.c include/gf2d_config.h src/gf2d_mouse.c include/gf2d_mouse.h src/gf2d_actor.c include/gf2d_actor.h src/gf2d_elements.c include/gf2d_elements.h src/gf2d_element_actor.c include/gf2d_element_actor.h src/gf2d_element_button.c include/gf2d_element_button.h src/gf2d_element_entry.c include/gf2d_element_entry.h src/gf2d_element_label.c include/gf2d_element_label.h src/gf2d_font.c src/gf2d_font.h src/gf2d_element_list.c include/gf2d_element_list.h src/windows_common.c include/windows_common.h)
 
 target_link_libraries(gameframework2d SDL2 SDL2main SDL2_ttf SDL2_mixer SDL2_image)
