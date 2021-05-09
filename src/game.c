@@ -1,6 +1,7 @@
 #include <SDL.h>
 
-#include "simple_logger.h"
+#include <simple_logger.h>
+#include "gfc_input.h"
 
 #include "gf2d_graphics.h"
 #include "gf2d_sprite.h"
@@ -12,6 +13,20 @@
 #include "level.h"
 #include "saves.h"
 
+#include "windows_common.h"
+
+static int _done = 0;
+static Window *_quit = NULL;
+
+void onCancel(void *data)
+{
+    _quit = NULL;
+}
+void onExit(void *data)
+{
+    _done = 1;
+    _quit = NULL;
+}
 
 int main(int argc, char * argv[])
 {
@@ -52,6 +67,7 @@ int main(int argc, char * argv[])
     camera_set_position(vector2d(0,0));
     gf2d_sprite_init(1024);
     font_init(10);
+    gf2d_windows_init(128);
     
     entity_manager_init(100);
 
@@ -63,7 +79,7 @@ int main(int argc, char * argv[])
     player_spawn(vector2d(0,512));
     font = font_load("fonts/Roboto-MediumItalic.ttf",16);
     /*main game loop*/
-    while(!done)
+    while(!_done)
     {
         SDL_PumpEvents();   // update SDL's internal event structures
         keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
@@ -71,7 +87,8 @@ int main(int argc, char * argv[])
         SDL_GetMouseState(&mx,&my);
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
-        
+        gf2d_windows_update_all();
+
         entity_manager_think_entities();
         entity_manager_update_entities();
         player = fetch_player_data();
@@ -84,6 +101,14 @@ int main(int argc, char * argv[])
             level_draw(level);
             
             entity_manager_draw_entities();
+            gf2d_windows_draw_all();
+            _quit = window_yes_no("Exit?", onExit, onCancel, NULL, NULL);
+            if (keys[SDL_SCANCODE_ESCAPE] && _quit == NULL)
+            {
+                printf("Exit command recognized");
+                save_game(player);
+                _quit = window_yes_no("Exit?", onExit, onCancel, NULL, NULL);
+            }
 
             //UI elements last
             gf2d_sprite_draw(
@@ -126,11 +151,12 @@ int main(int argc, char * argv[])
 
         gf2d_grahics_next_frame();// render current draw frame and skip to the next frame
 
-        if (keys[SDL_SCANCODE_ESCAPE])
-        {
-            save_game(player);
-            done = 1; // exit condition
-        }
+
+//        if (keys[SDL_SCANCODE_ESCAPE])
+//        {
+//            save_game(player);
+//            done = 1; // exit condition
+//        }
     }
     slog("---==== END ====---");
     return 0;
