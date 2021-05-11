@@ -1,5 +1,5 @@
 {
-  "window":{
+"window":{
     "color" : [255,255,255, 255],
     "dimensions" : [0,0,350,120],
     "justify" : "center",
@@ -16,7 +16,7 @@
         "item_size" : [100,36],
         "elements":
         [
-          {
+            {
             "type": "label",
             "name": "question",
             "id" : 1,
@@ -26,8 +26,8 @@
             "justify" : "center",
             "align" : "middle",
             "style":"H2"
-          },
-          {
+            },
+            {
             "type": "list",
             "name": "yesno",
             "id" : 50,
@@ -37,7 +37,7 @@
             "item_size" : [168,64],
             "elements":
             [
-              {
+                {
                 "type": "button",
                 "name": "yes",
                 "id" : 51,
@@ -47,28 +47,28 @@
                 "highColor" : [255,255,255,255],
                 "pressColor" : [255,255,255,255],
                 "label" :
-                {
-                  "type": "label",
-                  "name": "yes_l",
-                  "id" : 511,
-                  "bounds": [0,0,168,64],
-                  "color" : [255,255,255,255],
-                  "text":"Yes",
-                  "justify" : "center",
-                  "align" : "middle",
-                  "style":"H5"
-                },
+                    {
+                    "type": "label",
+                    "name": "yes_l",
+                    "id" : 511,
+                    "bounds": [0,0,168,64],
+                    "color" : [255,255,255,255],
+                    "text":"Yes",
+                    "justify" : "center",
+                    "align" : "middle",
+                    "style":"H5"
+                    },
                 "actor" :
+                    {
+                    "type": "actor",
+                    "name": "image",
+                    "id" : 512,
+                    "bounds": [0,0,168,64],
+                    "color" : [255,255,255,255],
+                    "actor" : "actors/button.actor"
+                    }
+                },
                 {
-                  "type": "actor",
-                  "name": "image",
-                  "id" : 512,
-                  "bounds": [0,0,168,64],
-                  "color" : [255,255,255,255],
-                  "actor" : "actors/button.actor"
-                }
-              },
-              {
                 "type": "button",
                 "name": "no",
                 "id" : 52,
@@ -78,31 +78,31 @@
                 "highColor" : [255,255,255,255],
                 "pressColor" : [255,255,255,255],
                 "label" :
-                {
-                  "type": "label",
-                  "name": "No_l",
-                  "id" : 521,
-                  "bounds": [0,0,168,64],
-                  "color" : [255,255,255,255],
-                  "text":"No",
-                  "align" : "middle",
-                  "justify" : "center",
-                  "style":"H5"
-                },
+                    {
+                    "type": "label",
+                    "name": "No_l",
+                    "id" : 521,
+                    "bounds": [0,0,168,64],
+                    "color" : [255,255,255,255],
+                    "text":"No",
+                    "align" : "middle",
+                    "justify" : "center",
+                    "style":"H5"
+                    },
                 "actor" :
-                {
-                  "type": "actor",
-                  "name": "image",
-                  "id" : 522,
-                  "bounds": [0,0,168,64],
-                  "color" : [255,255,255,255],
-                  "actor" : "actors/button.actor"
+                    {
+                    "type": "actor",
+                    "name": "image",
+                    "id" : 522,
+                    "bounds": [0,0,168,64],
+                    "color" : [255,255,255,255],
+                    "actor" : "actors/button.actor"
+                    }
                 }
-              }
             ]
-          }
+            }
         ]
       }
     ]
-  }
+    }
 }
