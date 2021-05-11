@@ -33,7 +33,7 @@
             "id" : 50,
             "bounds": [0,0,200,1],
             "color" : [255,255,255,255],
-            "style": "vertical",
+            "style": "horizontal",
             "item_size" : [168,64],
             "elements":
             [

@@ -21,6 +21,7 @@
 
 static int _done = 0;
 static Window *_quit = NULL;
+Level *level;
 
 void onCancel(void *data)
 {
@@ -31,11 +32,35 @@ void onExit(void *data)
     _done = 1;
     _quit = NULL;
 }
+void mainMenu(void *data)
+{
+    level = level_load("levels/main_menu.json");
+    player_spawn(vector2d(0,1000));
+}
+void levelOne(void *data)
+{
+    level = level_load("levels/a_level.json");
+    player_spawn(vector2d(0,512));
+}
+void levelTwo(void *data)
+{
+    level = level_load("levels/b_level.json");
+    player_spawn(vector2d(0,512));
+}
+void levelThree(void *data)
+{
+    level = level_load("levels/c_level.json");
+    player_spawn(vector2d(0,512));
+}
+void onPlay(void *data)
+{
+    window_level_selector("Select a Level",levelOne,levelTwo,levelThree,NULL,NULL,NULL);
+}
+
 
 int main(int argc, char * argv[])
 {
     /*variable declarations*/
-    Level *level;
     const Uint8 * keys;
     int mx,my;
     float mf;
@@ -78,19 +103,12 @@ int main(int argc, char * argv[])
             1,
             1);
     mf = 0;
-    level = level_load("levels/main_menu.json");
-    window_main_menu("Penguin Sledding Adventure",onCancel,onExit,NULL,NULL);
-    player_spawn(vector2d(0,1000));
+    mainMenu(NULL);
+    window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
 
     /*main game loop*/
     while(!_done)
     {
-//        if (i == 0)
-//            {
-//                i = 1;
-//                level = level_load("levels/b_level.json");
-//                player_spawn(vector2d(0,512));
-//            }
         SDL_PumpEvents();
         keys = SDL_GetKeyboardState(NULL);
 
