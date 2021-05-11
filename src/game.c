@@ -41,6 +41,7 @@ int main(int argc, char * argv[])
     float mf;
     Entity player;
     Space *space = NULL;
+    int i = 0;
 
     /*program initialization*/
     init_logger("gf2d.log");
@@ -77,12 +78,19 @@ int main(int argc, char * argv[])
             1,
             1);
     mf = 0;
-    level = level_load("levels/a_level.json");
-    player_spawn(vector2d(0,512));
+    level = level_load("levels/main_menu.json");
+    window_yes_no("Exit?",onExit,onCancel,NULL,NULL);
+    player_spawn(vector2d(0,1000));
 
     /*main game loop*/
     while(!_done)
     {
+//        if (i == 0)
+//            {
+//                i = 1;
+//                level = level_load("levels/b_level.json");
+//                player_spawn(vector2d(0,512));
+//            }
         SDL_PumpEvents();
         keys = SDL_GetKeyboardState(NULL);
 
