@@ -17,7 +17,7 @@ typedef struct
     Uint32 now;
     Uint32 then;
     Bool print_fps;
-    float fps; 
+    float fps;
 
     Uint32 background_color;
     Vector4D background_color_v;
@@ -27,7 +27,13 @@ typedef struct
     Uint32 gmask;
     Uint32 bmask;
     Uint32 amask;
+    Uint32 renderWidth;
+    Uint32 renderHeight;
+
+    int __DebugMode;
+
 }Graphics;
+
 
 /*local gobals*/
 static Graphics gf2d_graphics;
@@ -36,13 +42,14 @@ static Graphics gf2d_graphics;
 void gf2d_graphics_close();
 
 void gf2d_graphics_initialize(
-    char *windowName,
-    int viewWidth,
-    int viewHeight,
-    int renderWidth,
-    int renderHeight,
-    Vector4D bgcolor,
-    Bool fullscreen
+        char *windowName,
+        int viewWidth,
+        int viewHeight,
+        int renderWidth,
+        int renderHeight,
+        Vector4D bgcolor,
+        Bool fullscreen,
+        Bool debug
 )
 {
     Uint32 flags = 0;
@@ -63,11 +70,13 @@ void gf2d_graphics_initialize(
             flags |= SDL_WINDOW_FULLSCREEN;
         }
     }
+
+    gf2d_graphics.__DebugMode = debug;
     gf2d_graphics.main_window = SDL_CreateWindow(windowName,
-                             SDL_WINDOWPOS_UNDEFINED,
-                             SDL_WINDOWPOS_UNDEFINED,
-                             renderWidth, renderHeight,
-                             flags);
+                                                 SDL_WINDOWPOS_UNDEFINED,
+                                                 SDL_WINDOWPOS_UNDEFINED,
+                                                 renderWidth, renderHeight,
+                                                 flags);
 
     if (!gf2d_graphics.main_window)
     {
@@ -75,7 +84,7 @@ void gf2d_graphics_initialize(
         gf2d_graphics_close();
         return;
     }
-    
+
     gf2d_graphics.renderer = SDL_CreateRenderer(gf2d_graphics.main_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
     if (!gf2d_graphics.renderer)
     {
@@ -83,7 +92,7 @@ void gf2d_graphics_initialize(
         gf2d_graphics_close();
         return;
     }
-    
+
     SDL_SetRenderDrawColor(gf2d_graphics.renderer, 0, 0, 0, 255);
     SDL_RenderClear(gf2d_graphics.renderer);
     SDL_RenderPresent(gf2d_graphics.renderer);
@@ -91,38 +100,40 @@ void gf2d_graphics_initialize(
     SDL_RenderSetLogicalSize(gf2d_graphics.renderer, renderWidth, renderHeight);
 
     gf2d_graphics.texture = SDL_CreateTexture(
-        gf2d_graphics.renderer,
-        SDL_PIXELFORMAT_ARGB8888,
-        SDL_TEXTUREACCESS_STREAMING,
-        renderWidth, renderHeight);
+            gf2d_graphics.renderer,
+            SDL_PIXELFORMAT_ARGB8888,
+            SDL_TEXTUREACCESS_STREAMING,
+            renderWidth, renderHeight);
     if (!gf2d_graphics.texture)
     {
         slog("failed to create screen texture: %s",SDL_GetError());
         gf2d_graphics_close();
         return;
     }
-    
-    SDL_PixelFormatEnumToMasks(SDL_PIXELFORMAT_ARGB8888,
-                                    &gf2d_graphics.bitdepth,
-                                    &gf2d_graphics.rmask,
-                                    &gf2d_graphics.gmask,
-                                    &gf2d_graphics.bmask,
-                                    &gf2d_graphics.amask);
 
-    
+    SDL_PixelFormatEnumToMasks(SDL_PIXELFORMAT_ARGB8888,
+                               &gf2d_graphics.bitdepth,
+                               &gf2d_graphics.rmask,
+                               &gf2d_graphics.gmask,
+                               &gf2d_graphics.bmask,
+                               &gf2d_graphics.amask);
+
+    gf2d_graphics.renderWidth = renderWidth;
+    gf2d_graphics.renderHeight = renderHeight;
+
     gf2d_graphics.surface = SDL_CreateRGBSurface(0, renderWidth, renderHeight, gf2d_graphics.bitdepth,
-                                        gf2d_graphics.rmask,
-                                    gf2d_graphics.gmask,
-                                    gf2d_graphics.bmask,
-                                    gf2d_graphics.amask);
-    
+                                                 gf2d_graphics.rmask,
+                                                 gf2d_graphics.gmask,
+                                                 gf2d_graphics.bmask,
+                                                 gf2d_graphics.amask);
+
     if (!gf2d_graphics.surface)
     {
         slog("failed to create screen surface: %s",SDL_GetError());
         gf2d_graphics_close();
         return;
     }
-    
+
     gf2d_graphics.background_color = SDL_MapRGB(gf2d_graphics.surface->format, bgcolor.x,bgcolor.y,bgcolor.z);
     vector4d_set(gf2d_graphics.background_color_v,bgcolor.x,bgcolor.y,bgcolor.z,bgcolor.w);
     SDL_SetRenderDrawBlendMode(gf2d_graphics_get_renderer(),SDL_BLENDMODE_BLEND);
@@ -188,6 +199,11 @@ float gf2d_graphics_get_frames_per_second()
     return gf2d_graphics.fps;
 }
 
+Vector2D gf2d_graphics_get_resolution()
+{
+    return vector2d(gf2d_graphics.renderWidth,gf2d_graphics.renderHeight);
+}
+
 void gf2d_graphics_frame_delay()
 {
     Uint32 diff;
@@ -204,8 +220,8 @@ void gf2d_graphics_frame_delay()
 
 void gf2d_grahics_next_frame()
 {
-    gf2d_graphics_frame_delay();
     SDL_RenderPresent(gf2d_graphics.renderer);
+    gf2d_graphics_frame_delay();
 }
 
 void gf2d_graphics_clear_screen()
@@ -215,11 +231,11 @@ void gf2d_graphics_clear_screen()
         return;
     }
     SDL_SetRenderDrawColor(
-        gf2d_graphics.renderer,
-        gf2d_graphics.background_color_v.x,
-        gf2d_graphics.background_color_v.y,
-        gf2d_graphics.background_color_v.z,
-        gf2d_graphics.background_color_v.w);
+            gf2d_graphics.renderer,
+            gf2d_graphics.background_color_v.x,
+            gf2d_graphics.background_color_v.y,
+            gf2d_graphics.background_color_v.z,
+            gf2d_graphics.background_color_v.w);
     SDL_FillRect(gf2d_graphics.surface,NULL,gf2d_graphics.background_color);
     SDL_RenderClear(gf2d_graphics.renderer);
 }
@@ -228,12 +244,12 @@ SDL_Surface *gf2d_graphics_create_surface(Uint32 w,Uint32 h)
 {
     SDL_Surface *surface;
     surface = SDL_CreateRGBSurface(
-        0,w, h,
-        gf2d_graphics.bitdepth,
-        gf2d_graphics.rmask,
-        gf2d_graphics.gmask,
-        gf2d_graphics.bmask,
-        gf2d_graphics.amask);
+            0,w, h,
+            gf2d_graphics.bitdepth,
+            gf2d_graphics.rmask,
+            gf2d_graphics.gmask,
+            gf2d_graphics.bmask,
+            gf2d_graphics.amask);
     return surface;
 }
 
@@ -246,9 +262,9 @@ void gf2d_graphics_render_texture_to_screen(SDL_Texture *texture,const SDL_Rect 
         return;
     }
     if (SDL_RenderCopy(gf2d_graphics.renderer,
-                   texture,
-                   srcRect,
-                   dstRect))
+                       texture,
+                       srcRect,
+                       dstRect))
     {
         slog("failed to render:%s",SDL_GetError());
     }
@@ -283,8 +299,8 @@ SDL_Surface *gf2d_graphics_screen_convert(SDL_Surface **surface)
         return NULL;
     }
     convert = SDL_ConvertSurface(*surface,
-                       gf2d_graphics.surface->format,
-                       0);
+                                 gf2d_graphics.surface->format,
+                                 0);
     if (!convert)
     {
         slog("failed to convert surface: %s",SDL_GetError());
@@ -293,6 +309,11 @@ SDL_Surface *gf2d_graphics_screen_convert(SDL_Surface **surface)
     SDL_FreeSurface(*surface);
     *surface = NULL;
     return convert;
+}
+
+Bool gf2d_graphics_debug_mode()
+{
+    return (Bool)gf2d_graphics.__DebugMode;
 }
 
 /*eol@eof*/

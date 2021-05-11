@@ -18,7 +18,7 @@ Entity *player_spawn(Vector2D position)
         slog("failed to create entity for the player");
         return NULL;
     }
-    ent->sprite = gf2d_sprite_load_all("images/lr_penguin2_128x128x8.png",128,128,8);
+    ent->sprite = gf2d_sprite_load_all("images/lr_penguin2_128x128x8.png",128,128,8,0);
     vector2d_copy(ent->position,position);
     ent->rect.h = 128;
     ent->rect.w = 128;

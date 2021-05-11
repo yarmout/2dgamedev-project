@@ -50,10 +50,14 @@ void gf2d_sprite_init(Uint32 max)
 void gf2d_sprite_delete(Sprite *sprite)
 {
     if (!sprite)return;
+    if (sprite->surface != NULL)
+    {
+        SDL_FreeSurface(sprite->surface);
+    }
     if (sprite->texture != NULL)
     {
         SDL_DestroyTexture(sprite->texture);
-    }    
+    }
     memset(sprite,0,sizeof(Sprite));//clean up all other data
 }
 
@@ -113,19 +117,20 @@ Sprite *gf2d_sprite_get_by_filename(char * filename)
 
 Sprite *gf2d_sprite_load_image(char *filename)
 {
-    return gf2d_sprite_load_all(filename,-1,-1,1);
+    return gf2d_sprite_load_all(filename,-1,-1,1,false);
 }
 
 Sprite *gf2d_sprite_load_all(
-    char *filename,
-    Sint32 frameWidth,
-    Sint32 frameHeight,
-    Sint32 framesPerLine
+        char   *filename,
+        Sint32  frameWidth,
+        Sint32  frameHeight,
+        Sint32  framesPerLine,
+        Bool    keepSurface
 )
 {
     SDL_Surface *surface = NULL;
     Sprite *sprite = NULL;
-    
+
     sprite = gf2d_sprite_get_by_filename(filename);
     if (sprite != NULL)
     {
@@ -133,13 +138,13 @@ Sprite *gf2d_sprite_load_all(
         sprite->ref_count++;
         return sprite;
     }
-    
+
     sprite = gf2d_sprite_new();
     if (!sprite)
     {
         return NULL;
     }
-    
+
     surface = IMG_Load(filename);
     if (!surface)
     {
@@ -155,7 +160,7 @@ Sprite *gf2d_sprite_load_all(
         gf2d_sprite_free(sprite);
         return NULL;
     }
-    
+
     sprite->texture = SDL_CreateTextureFromSurface(gf2d_graphics_get_renderer(),surface);
     if (!sprite->texture)
     {
@@ -164,11 +169,11 @@ Sprite *gf2d_sprite_load_all(
         SDL_FreeSurface(surface);
         return NULL;
     }
-    SDL_SetTextureBlendMode(sprite->texture,SDL_BLENDMODE_BLEND);        
+    SDL_SetTextureBlendMode(sprite->texture,SDL_BLENDMODE_BLEND);
     SDL_UpdateTexture(sprite->texture,
-                    NULL,
-                    surface->pixels,
-                    surface->pitch);
+                      NULL,
+                      surface->pixels,
+                      surface->pitch);
     if (frameHeight == -1)
     {
         sprite->frame_h = surface->h;
@@ -182,32 +187,95 @@ Sprite *gf2d_sprite_load_all(
     sprite->frames_per_line = framesPerLine;
     gfc_line_cpy(sprite->filepath,filename);
 
-    SDL_FreeSurface(surface);
+    if(!keepSurface)
+    {
+        SDL_FreeSurface(surface);
+    }
+    else
+    {
+        sprite->surface = surface;
+    }
     return sprite;
+}
+
+void gf2d_sprite_draw_to_surface(
+        Sprite *sprite,
+        Vector2D position,
+        Vector2D * scale,
+        Vector2D * scaleCenter,
+        Uint32 frame,
+        SDL_Surface *surface
+)
+{
+    SDL_Rect cell,target;
+    int fpl;
+    Vector2D scaleFactor = {1,1};
+    Vector2D scaleOffset = {0,0};
+    if (!sprite)
+    {
+        slog("no sprite provided to draw");
+        return;
+    }
+    if (!sprite->surface)
+    {
+        slog("sprite does not contain surface to draw with");
+        return;
+    }
+    if (!surface)
+    {
+        slog("no surface provided to draw to");
+        return;
+    }
+    if (scale)
+    {
+        vector2d_copy(scaleFactor,(*scale));
+    }
+    if (scaleCenter)
+    {
+        vector2d_copy(scaleOffset,(*scaleCenter));
+    }
+    fpl = (sprite->frames_per_line)?sprite->frames_per_line:1;
+    gfc_rect_set(
+            cell,
+            frame%fpl * sprite->frame_w,
+            frame/fpl * sprite->frame_h,
+            sprite->frame_w,
+            sprite->frame_h);
+    gfc_rect_set(
+            target,
+            position.x - (scaleFactor.x * scaleOffset.x),
+            position.y - (scaleFactor.y * scaleOffset.y),
+            sprite->frame_w * scaleFactor.x,
+            sprite->frame_h * scaleFactor.y);
+    SDL_BlitScaled(
+            sprite->surface,
+            &cell,
+            surface,
+            &target);
 }
 
 void gf2d_sprite_draw_image(Sprite *image,Vector2D position)
 {
     gf2d_sprite_draw(
-        image,
-        position,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
-        0);
+            image,
+            position,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            0);
 }
 
 void gf2d_sprite_draw(
-    Sprite * sprite,
-    Vector2D position,
-    Vector2D * scale,
-    Vector2D * scaleCenter,
-    Vector3D * rotation,
-    Vector2D * flip,
-    Vector4D * colorShift,
-    Uint32 frame)
+        Sprite * sprite,
+        Vector2D position,
+        Vector2D * scale,
+        Vector2D * scaleCenter,
+        Vector3D * rotation,
+        Vector2D * flip,
+        Vector4D * colorShift,
+        Uint32 frame)
 {
     SDL_Rect cell,target;
     SDL_RendererFlip flipFlags = SDL_FLIP_NONE;
@@ -219,7 +287,7 @@ void gf2d_sprite_draw(
     {
         return;
     }
-    
+
     if (scale)
     {
         vector2d_copy(scaleFactor,(*scale));
@@ -242,28 +310,28 @@ void gf2d_sprite_draw(
     if (colorShift)
     {
         SDL_SetTextureColorMod(
-            sprite->texture,
-            colorShift->x,
-            colorShift->y,
-            colorShift->z);
+                sprite->texture,
+                colorShift->x,
+                colorShift->y,
+                colorShift->z);
         SDL_SetTextureAlphaMod(
-            sprite->texture,
-            colorShift->w);
+                sprite->texture,
+                colorShift->w);
     }
-    
+
     fpl = (sprite->frames_per_line)?sprite->frames_per_line:1;
     gfc_rect_set(
-        cell,
-        frame%fpl * sprite->frame_w,
-        frame/fpl * sprite->frame_h,
-        sprite->frame_w,
-        sprite->frame_h);
+            cell,
+            frame%fpl * sprite->frame_w,
+            frame/fpl * sprite->frame_h,
+            sprite->frame_w,
+            sprite->frame_h);
     gfc_rect_set(
-        target,
-        position.x - (scaleFactor.x * scaleOffset.x),
-        position.y - (scaleFactor.y * scaleOffset.y),
-        sprite->frame_w * scaleFactor.x,
-        sprite->frame_h * scaleFactor.y);
+            target,
+            position.x - (scaleFactor.x * scaleOffset.x),
+            position.y - (scaleFactor.y * scaleOffset.y),
+            sprite->frame_w * scaleFactor.x,
+            sprite->frame_h * scaleFactor.y);
     SDL_RenderCopyEx(gf2d_graphics_get_renderer(),
                      sprite->texture,
                      &cell,
@@ -274,13 +342,13 @@ void gf2d_sprite_draw(
     if (colorShift)
     {
         SDL_SetTextureColorMod(
-            sprite->texture,
-            255,
-            255,
-            255);
+                sprite->texture,
+                255,
+                255,
+                255);
         SDL_SetTextureAlphaMod(
-            sprite->texture,
-            255);
+                sprite->texture,
+                255);
     }
 }
 
