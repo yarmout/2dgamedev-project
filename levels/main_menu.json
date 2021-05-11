@@ -1,0 +1,27 @@
+{
+  "level":
+  {
+    "bgImage" : ["images/backgrounds/bg_snow.png","images/backgrounds/bg_snow.png"],
+    "tileSet" : "images/basetileset.png",
+    "tileWidth":32,
+    "tileHeight":32,
+    "tileFPL":16,
+    "tileMap":[
+      [0],
+    ]
+    "entityMap": {
+      "snow_man": [],
+      "crystal" : [],
+      "igloo": [],
+      "stone": [],
+      "trees": []
+    }
+    "pickupMap": {
+      "invincible": [],
+      "extraLife": [],
+      "restoreHealth": [],
+      "normal": [],
+      "rare": []
+    }
+  }
+}
