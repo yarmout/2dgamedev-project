@@ -79,7 +79,7 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     level = level_load("levels/main_menu.json");
-    window_yes_no("Exit?",onExit,onCancel,NULL,NULL);
+    window_main_menu("Penguin Sledding Adventure",onCancel,onExit,NULL,NULL);
     player_spawn(vector2d(0,1000));
 
     /*main game loop*/
