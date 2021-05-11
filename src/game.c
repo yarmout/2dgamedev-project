@@ -99,7 +99,7 @@ int main(int argc, char * argv[])
         level_update(level);
 
         gf2d_graphics_clear_screen();// clears drawing buffers
-        // all drawing should happen betweem clear_screen and next_frame
+        // all drawing should happen between clear_screen and next_frame
         //backgrounds drawn first
         level_draw(level);
 
@@ -113,6 +113,7 @@ int main(int argc, char * argv[])
 
         if (keys[SDL_SCANCODE_ESCAPE] && _quit == NULL)
         {
+            save_game(player);
             _quit = window_yes_no("Exit?",onExit,onCancel,NULL,NULL);
         }
 
