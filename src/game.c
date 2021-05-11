@@ -31,6 +31,10 @@ void onExit(void *data)
     _done = 1;
     _quit = NULL;
 }
+void onPlay(void *data)
+{
+    window_level_selector("Select a Level",onCancel,onCancel,onCancel,NULL,NULL,NULL);
+}
 
 int main(int argc, char * argv[])
 {
@@ -79,7 +83,7 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     level = level_load("levels/main_menu.json");
-    window_main_menu("Penguin Sledding Adventure",onCancel,onExit,NULL,NULL);
+    window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
     player_spawn(vector2d(0,1000));
 
     /*main game loop*/
