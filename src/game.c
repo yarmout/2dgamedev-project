@@ -60,27 +60,42 @@ void levelOne_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/a_level.json");
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void levelTwo_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/b_level.json");
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void levelThree_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/c_level.json");
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
     infinite_level = true;
 }
 void levelFour_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/d_level.json");
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void levelFive_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/e_level.json");
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
     infinite_level = true;
 }
 void onPlaySecret(void *data)
@@ -91,16 +106,25 @@ void levelOne(void *data)
 {
     level = level_load("levels/a_level.json");
     player_spawn(vector2d(0,512), 0);
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void levelTwo(void *data)
 {
     level = level_load("levels/b_level.json");
     player_spawn(vector2d(0,512), 0);
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void levelThree(void *data)
 {
     level = level_load("levels/c_level.json");
     player_spawn(vector2d(0,512), 0);
+    Mix_Music *music;
+    music = Mix_LoadMUS("music/in_game_music.ogg");
+    Mix_PlayMusic(music, -1);
 }
 void onPlay(void *data)
 {
