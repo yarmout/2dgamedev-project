@@ -18,6 +18,7 @@
 #include "camera.h"
 #include "windows_common.h"
 #include "gf2d_space.h"
+#include "gfc_audio.h"
 
 static int _done = 0;
 static Window *_quit = NULL;
@@ -66,9 +67,9 @@ int main(int argc, char * argv[])
     float mf;
     Entity player;
     Space *space = NULL;
-    int i = 0;
+    Mix_Music *music;
 
-    /*program initialization*/
+    /*game initialization*/
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
     gf2d_graphics_initialize(
@@ -81,6 +82,7 @@ int main(int argc, char * argv[])
             0,
             0);
     gf2d_graphics_set_frame_delay(16);
+    gfc_audio_init(256,16,4,1,1,1);
     gf2d_sprite_init(1024);
     gf2d_action_list_init(128);
     gf2d_font_init("config/font.cfg");
@@ -104,6 +106,8 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     mainMenu(NULL);
+    music = Mix_LoadMUS("music/wisdom.mp3");
+    Mix_PlayMusic(music, -1);
     window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
 
     /*main game loop*/
