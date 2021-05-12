@@ -8,4 +8,5 @@ Window *window_text_entry(char *question, char *defaultText, size_t length, void
 
 Window *window_main_menu(char *text, void(*onYes)(void *),void(*onNo)(void *),void *yesData,void *noData);
 Window *window_level_selector(char *text, void(*onOne)(void *),void(*onTwo)(void *),void(*onThree)(void *),void *oneData,void *twoData,void *threeData);
+Window *window_penguin_selector(char *text, void(*onOne)(void *),void(*onTwo)(void *),void(*onThree)(void *),void(*onFour)(void *),void *oneData,void *twoData,void *threeData,void *fourData);
 #endif

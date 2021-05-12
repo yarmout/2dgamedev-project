@@ -11,6 +11,7 @@ typedef struct Entity_s
     Bool       _inuse;
     Bool        pickup;
     Bool        player;
+    Bool        laneSkip;
     Vector2D    position;
     ShapeRect   rect;
     Vector2D    velocity;
