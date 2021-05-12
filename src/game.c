@@ -54,26 +54,54 @@ void mainMenu(void *data)
 {
     level = level_load("levels/main_menu.json");
 }
-void levelOne(void *data)
+void levelOne_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/a_level.json");
 }
-void levelTwo(void *data)
+void levelTwo_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/b_level.json");
 }
-void levelThree(void *data)
+void levelThree_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/c_level.json");
 }
+void levelFour_s(void *data)
+{
+    window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
+    level = level_load("levels/d_level.json");
+}
+void levelFive_s(void *data)
+{
+    window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
+    level = level_load("levels/e_level.json");
+}
+void onPlaySecret(void *data)
+{
+    window_level_selector("Select a Level", levelOne_s, levelTwo_s, levelThree_s,levelFour_s,levelFive_s,NULL,NULL,NULL,NULL,NULL,1);
+}
+void levelOne(void *data)
+{
+    level = level_load("levels/a_level.json");
+    player_spawn(vector2d(0,512), 0);
+}
+void levelTwo(void *data)
+{
+    level = level_load("levels/b_level.json");
+    player_spawn(vector2d(0,512), 0);
+}
+void levelThree(void *data)
+{
+    level = level_load("levels/c_level.json");
+    player_spawn(vector2d(0,512), 0);
+}
 void onPlay(void *data)
 {
-    window_level_selector("Select a Level",levelOne,levelTwo,levelThree,NULL,NULL,NULL);
+    window_level_selector("Select a Level", levelOne, levelTwo, levelThree,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0);
 }
-
 
 int main(int argc, char * argv[])
 {
@@ -88,7 +116,7 @@ int main(int argc, char * argv[])
     TextLine hp_text, powerup_text, collectables_text, rare_collectable_text;
     TextLine previous_game_text, previous_hp_text, previous_collectables_text, previous_rare_collectable_text;
     int arr[3];
-    int* game_data;
+    int* game_data = {0};
 
     /*game initialization*/
 
@@ -131,10 +159,11 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     mainMenu(NULL);
-//  levelOne(NULL);
+//  levelOne_s(NULL);
     music = Mix_LoadMUS("music/main_menu_music.mp3");
     Mix_PlayMusic(music, -1);
-    window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
+    if (game_data[2] == 1)window_main_menu("Penguin Sledding Adventure", onPlaySecret, onExit, NULL, NULL);
+    else window_main_menu("Penguin Sledding Adventure", onPlay, onExit, NULL, NULL);
 
     /*main game loop*/
     while(!_done)

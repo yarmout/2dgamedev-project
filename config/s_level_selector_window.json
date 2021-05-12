@@ -1,0 +1,201 @@
+{
+  "window":{
+    "color" : [255,255,255, 255],
+    "dimensions" : [0,0,350,120],
+    "justify" : "center",
+    "align" : "middle",
+    "elements":
+    [
+      {
+        "type": "list",
+        "name": "list",
+        "id" : 0,
+        "bounds": [10,10,1,1],
+        "color" : [255,255,255,255],
+        "style": "vertical",
+        "item_size" : [100,36],
+        "elements":
+        [
+          {
+            "type": "label",
+            "name": "question",
+            "id" : 1,
+            "bounds": [0,0,1,40],
+            "color" : [255,255,255,255],
+            "text":"?",
+            "justify" : "center",
+            "align" : "middle",
+            "style":"H2"
+          },
+          {
+            "type": "list",
+            "name": "levels",
+            "id" : 50,
+            "bounds": [0,0,200,1],
+            "color" : [255,255,255,255],
+            "style": "horizontal",
+            "item_size" : [168,64],
+            "elements":
+            [
+              {
+                "type": "button",
+                "name": "Level_1",
+                "id" : 51,
+                "bounds": [0,0,168,64],
+                "hotkey":"Level_1",
+                "color" : [255,255,255,255],
+                "highColor" : [255,255,255,255],
+                "pressColor" : [255,255,255,255],
+                "label" :
+                {
+                  "type": "label",
+                  "name": "Level_1_l",
+                  "id" : 511,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "text":"Level 1",
+                  "justify" : "center",
+                  "align" : "middle",
+                  "style":"H5"
+                },
+                "actor" :
+                {
+                  "type": "actor",
+                  "name": "image",
+                  "id" : 512,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "actor" : "actors/button.actor"
+                }
+              },
+              {
+                "type": "button",
+                "name": "Level_2",
+                "id" : 52,
+                "bounds": [0,0,164,68],
+                "color" : [255,255,255,255],
+                "hotkey":"Level_2",
+                "highColor" : [255,255,255,255],
+                "pressColor" : [255,255,255,255],
+                "label" :
+                {
+                  "type": "label",
+                  "name": "Level_2_l",
+                  "id" : 521,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "text":"Level 2",
+                  "align" : "middle",
+                  "justify" : "center",
+                  "style":"H5"
+                },
+                "actor" :
+                {
+                  "type": "actor",
+                  "name": "image",
+                  "id" : 522,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "actor" : "actors/button.actor"
+                }
+              },
+              {
+                "type": "button",
+                "name": "Level_3",
+                "id" : 53,
+                "bounds": [0,0,164,68],
+                "color" : [255,255,255,255],
+                "hotkey":"Level_3",
+                "highColor" : [255,255,255,255],
+                "pressColor" : [255,255,255,255],
+                "label" :
+                {
+                  "type": "label",
+                  "name": "Level_3_l",
+                  "id" : 523,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "text":"Level 3",
+                  "align" : "middle",
+                  "justify" : "center",
+                  "style":"H5"
+                },
+                "actor" :
+                {
+                  "type": "actor",
+                  "name": "image",
+                  "id" : 524,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "actor" : "actors/button.actor"
+                }
+              },
+              {
+                "type": "button",
+                "name": "Level_4",
+                "id" : 53,
+                "bounds": [0,0,164,68],
+                "color" : [255,255,255,255],
+                "hotkey":"Level_4",
+                "highColor" : [255,255,255,255],
+                "pressColor" : [255,255,255,255],
+                "label" :
+                {
+                  "type": "label",
+                  "name": "Level_4_l",
+                  "id" : 523,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "text":"Level 4",
+                  "align" : "middle",
+                  "justify" : "center",
+                  "style":"H5"
+                },
+                "actor" :
+                {
+                  "type": "actor",
+                  "name": "image",
+                  "id" : 524,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "actor" : "actors/button.actor"
+                }
+              },
+              {
+                "type": "button",
+                "name": "Level_5",
+                "id" : 53,
+                "bounds": [0,0,164,68],
+                "color" : [255,255,255,255],
+                "hotkey":"Level_5",
+                "highColor" : [255,255,255,255],
+                "pressColor" : [255,255,255,255],
+                "label" :
+                {
+                  "type": "label",
+                  "name": "Level_5_l",
+                  "id" : 523,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "text":"Level 5",
+                  "align" : "middle",
+                  "justify" : "center",
+                  "style":"H5"
+                },
+                "actor" :
+                {
+                  "type": "actor",
+                  "name": "image",
+                  "id" : 524,
+                  "bounds": [0,0,168,64],
+                  "color" : [255,255,255,255],
+                  "actor" : "actors/button.actor"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
