@@ -106,7 +106,7 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     mainMenu(NULL);
-    music = Mix_LoadMUS("music/wisdom.mp3");
+    music = Mix_LoadMUS("music/main_menu_music.mp3");
     Mix_PlayMusic(music, -1);
     window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
 
