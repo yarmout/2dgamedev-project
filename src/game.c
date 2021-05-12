@@ -271,6 +271,8 @@ int main(int argc, char * argv[])
 //            save_game(player);
 //            _done = 1; // exit condition
 //        }
+
+        slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
     return 0;
