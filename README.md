@@ -1,4 +1,4 @@
-# **Penguin Sledding - Final Design**
+# **Penguin Sledding Adventure**
 
 ## IT 276: 2D Game Development
 
