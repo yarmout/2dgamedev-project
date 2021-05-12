@@ -13,7 +13,7 @@ typedef struct
     TTF_Font   *font;       /**<the handle to the TTF_Font we will use*/
     TextLine    filename;   /**<filename of the font we loaded*/
     int         ptsize;     /**<the font size loaded.*/
-}Font;
+}Font_old;
 
 /**
  * @brief initialize font resource manager
@@ -21,8 +21,8 @@ typedef struct
  */
 void font_init(Uint32 maxFonts);
 
-Font *font_load(const char *filename, int ptsize);
-void font_free(Font * font);
-void font_render(Font *font,char *text,Vector2D position,Color color);
+Font_old *font_load(const char *filename, int ptsize);
+void font_free(Font_old * font);
+void font_render(Font_old *font,char *text,Vector2D position,Color color);
 
 #endif

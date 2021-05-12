@@ -4,17 +4,17 @@
 
 typedef struct
 {
-    Font *fontList;
+    Font_old *fontList;
     Uint32 maxFonts;
 }FontManager;
 
 static FontManager font_manager = {0};
 
-void font_delete(Font *font)
+void font_delete(Font_old *font)
 {
     if (!font)return;
     if (font->font != NULL)TTF_CloseFont(font->font);
-    memset(font,0,sizeof(Font));
+    memset(font,0,sizeof(Font_old));
 }
 
 void font_manager_close()
@@ -45,11 +45,11 @@ void font_init(Uint32 maxFonts)
     }
     font_manager_close();
     font_manager.maxFonts = maxFonts;
-    font_manager.fontList = (Font *)gfc_allocate_array(sizeof(Font),maxFonts);
+    font_manager.fontList = (Font_old *)gfc_allocate_array(sizeof(Font_old),maxFonts);
     atexit(font_manager_close);
 }
 
-Font *font_new()
+Font_old *font_new()
 {
     int i;
     for (i = 0; i < font_manager.maxFonts; i++)
@@ -63,7 +63,7 @@ Font *font_new()
     return NULL;
 }
 
-Font *font_get_by_file_point(const char *filename, int ptsize)
+Font_old *font_get_by_file_point(const char *filename, int ptsize)
 {
     int i;
     for (i = 0; i < font_manager.maxFonts; i++)
@@ -76,9 +76,9 @@ Font *font_get_by_file_point(const char *filename, int ptsize)
     return NULL;
 }
 
-Font *font_load(const char *filename, int ptsize)
+Font_old *font_load(const char *filename, int ptsize)
 {
-    Font *font;
+    Font_old *font;
     
     font = font_get_by_file_point(filename,ptsize);
     if (font != NULL)
@@ -108,14 +108,14 @@ Font *font_load(const char *filename, int ptsize)
     return font;
 }
 
-void font_free(Font * font)
+void font_free(Font_old * font)
 {
     if (!font)return;
     font->_refCount--;
     if (font->_refCount == 0)font_delete(font);
 }
 
-void font_render(Font *font,char *text,Vector2D position,Color color)
+void font_render(Font_old *font,char *text,Vector2D position,Color color)
 {
     SDL_Surface *surface;
     SDL_Texture *texture;
