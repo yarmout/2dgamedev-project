@@ -36,7 +36,6 @@ void onExit(void *data)
 void mainMenu(void *data)
 {
     level = level_load("levels/main_menu.json");
-    player_spawn(vector2d(0,1000));
 }
 void levelOne(void *data)
 {
@@ -88,7 +87,7 @@ int main(int argc, char * argv[])
     gf2d_font_init("config/font.cfg");
     gfc_input_init("config/input.cfg");
     gf2d_windows_init(128);
-    entity_manager_init(100);
+    entity_manager_init(1024);
 
     camera_set_dimensions(vector2d(1200,720));
     camera_set_position(vector2d(0,0));
@@ -106,7 +105,8 @@ int main(int argc, char * argv[])
             1);
     mf = 0;
     mainMenu(NULL);
-    music = Mix_LoadMUS("music/wisdom.mp3");
+//  levelOne(NULL);
+    music = Mix_LoadMUS("music/main_menu_music.mp3");
     Mix_PlayMusic(music, -1);
     window_main_menu("Penguin Sledding Adventure",onPlay,onExit,NULL,NULL);
 

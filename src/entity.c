@@ -4,6 +4,9 @@
 #include "camera.h"
 #include "entity.h"
 #include "shape.h"
+#include "gfc_audio.h"
+
+
 
 typedef struct
 {
@@ -58,7 +61,8 @@ void entity_update(Entity *self)
 
 void entity_manager_update_entities()
 {
-    int i, j, playerIndex;
+    int i, j;
+    int playerIndex = {0};
 
     if (entity_manager.entity_list == NULL)
     {
@@ -73,6 +77,7 @@ void entity_manager_update_entities()
             playerIndex = j;
         }
     }
+
     for (i = 0; i < entity_manager.max_entities; i++)
     {
         if (entity_manager.entity_list[i]._inuse == 0)continue;
@@ -119,6 +124,10 @@ void entity_manager_update_entities()
                 entity_manager.entity_list[i].rect.x = 5000;
                 entity_manager.entity_list[i].rect.y = 5000;
                 entity_manager.entity_list[playerIndex].health -= 1;
+
+                Sound *damage_sound = gfc_sound_load("music/damage_sound.ogg", 50, 2);
+                gfc_sound_play(damage_sound, 1, 50, 2, 1);
+                gfc_sound_free(damage_sound);
             }
         }
     }
@@ -230,7 +239,8 @@ void entity_draw(Entity *ent)
 
 Entity fetch_player_data()
 {
-    int j, playerIndex;
+    int j;
+    int playerIndex = {0};
     Entity placeholderEnt = {0};
 
     if (entity_manager.entity_list == NULL)
