@@ -267,6 +267,8 @@ Window *window_level_selector(char *text, void(*onOne)(void *),void(*onTwo)(void
     callbacks = gfc_list_append(callbacks, gfc_callback_new(onOne, oneData));
     callbacks = gfc_list_append(callbacks, gfc_callback_new(onTwo, twoData));
     callbacks = gfc_list_append(callbacks, gfc_callback_new(onThree, threeData));
+    callbacks = gfc_list_append(callbacks, gfc_callback_new(onFour, onFour));
+    callbacks = gfc_list_append(callbacks, gfc_callback_new(onFive, onFive));
     win->data = callbacks;
     return win;
 }
