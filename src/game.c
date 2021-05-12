@@ -19,6 +19,7 @@
 #include "windows_common.h"
 #include "gf2d_space.h"
 #include "gfc_audio.h"
+#include "font.h"
 
 static int _done = 0;
 static Window *_quit = NULL;
@@ -67,8 +68,14 @@ int main(int argc, char * argv[])
     Entity player;
     Space *space = NULL;
     Mix_Music *music;
+    Font_old *font;
+    TextLine hp_text, powerup_text, collectables_text, rare_collectable_text;
+    TextLine previous_game_text, previous_hp_text, previous_collectables_text, previous_rare_collectable_text;
+    int arr[3];
+    int* game_data;
 
     /*game initialization*/
+
     init_logger("gf2d.log");
     slog("---==== BEGIN ====---");
     gf2d_graphics_initialize(
@@ -80,6 +87,9 @@ int main(int argc, char * argv[])
             vector4d(0,0,0,255),
             0,
             0);
+    if(load_game(arr))game_data = load_game(arr);
+    font_init(10);
+    font = font_load("fonts/Roboto-MediumItalic.ttf",16);
     gf2d_graphics_set_frame_delay(16);
     gfc_audio_init(256,16,4,1,1,1);
     gf2d_sprite_init(1024);
@@ -136,6 +146,37 @@ int main(int argc, char * argv[])
         entity_manager_draw_entities();
 
         //UI elements last
+
+        //Save Data
+
+        //Current game
+        gfc_line_sprintf(hp_text, "Current HP: %i", player.health);
+        gfc_line_sprintf(powerup_text, "Current power-up: %s", player.current_pickup);
+        gfc_line_sprintf(collectables_text, "# of fish collected: %i", player.number_of_collectables);
+        if (player.collectableRare)gfc_line_sprintf(rare_collectable_text, "Rare fish found!", player.collectableRare);
+        else gfc_line_sprintf(rare_collectable_text, "Rare fish not yet found!", player.collectableRare);
+
+        //Previous game
+        if (game_data)
+        {
+            gfc_line_sprintf(previous_game_text, "Previous game score:");
+            gfc_line_sprintf(previous_hp_text, "Current HP: %i", game_data[1]);
+            gfc_line_sprintf(previous_collectables_text, "# of fish collected: %i", game_data[0]);
+            if (game_data[2] == 1)gfc_line_sprintf(previous_rare_collectable_text, "Rare fish found!", player.collectableRare);
+            else gfc_line_sprintf(previous_rare_collectable_text, "Rare fish not yet found!", player.collectableRare);
+
+            font_render(font, previous_game_text, vector2d(1000, 0), gfc_color8(255, 0, 0, 255));
+            font_render(font, previous_hp_text, vector2d(1000, 16), gfc_color8(255, 0, 0, 255));
+            font_render(font, previous_collectables_text, vector2d(1000, 32), gfc_color8(255, 0, 0, 255));
+            font_render(font, previous_rare_collectable_text, vector2d(1000, 48), gfc_color8(255, 0, 0, 255));
+        }
+
+        //Current game
+        font_render(font, hp_text, vector2d(32, 0), gfc_color8(255, 0, 0, 255));
+        font_render(font, powerup_text, vector2d(32, 16), gfc_color8(255, 0, 0, 255));
+        font_render(font, collectables_text, vector2d(32, 32), gfc_color8(255, 0, 0, 255));
+        font_render(font, rare_collectable_text, vector2d(32, 48), gfc_color8(255, 0, 0, 255));
+
         gf2d_windows_draw_all();
         gf2d_mouse_draw();
 
