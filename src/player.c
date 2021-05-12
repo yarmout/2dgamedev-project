@@ -119,6 +119,14 @@ void player_think(Entity *self)
     }
      */
 
+    extern Bool infinite_level;
+    if (self->collectableRare == true && infinite_level == true)
+    {
+        self->position.x = 0;
+        self->position.y = 512;
+        self->collectableRare = false;
+    }
+
     if (self->laneSkip == true)
     {
         if (keys[SDL_SCANCODE_1])self->position.y = topLane;

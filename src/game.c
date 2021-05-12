@@ -25,6 +25,8 @@ static int _done = 0;
 static Window *_quit = NULL;
 Level *level;
 
+Bool infinite_level = false;
+
 void penguinZero(void *data)
 {
     player_spawn(vector2d(0,512), 0);
@@ -68,6 +70,7 @@ void levelThree_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/c_level.json");
+    infinite_level = true;
 }
 void levelFour_s(void *data)
 {
@@ -78,6 +81,7 @@ void levelFive_s(void *data)
 {
     window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/e_level.json");
+    infinite_level = true;
 }
 void onPlaySecret(void *data)
 {
@@ -182,6 +186,11 @@ int main(int argc, char * argv[])
         gf2d_space_update(space);
         player = fetch_player_data();
         level_update(level);
+
+        if (infinite_level == true && player.collectableRare == true)
+        {
+            level = level_load("levels/e_level.json");
+        }
 
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen between clear_screen and next_frame
