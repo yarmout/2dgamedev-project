@@ -9,7 +9,7 @@
 void player_update(Entity *self);
 void player_think(Entity *self);
 
-Entity *player_spawn(Vector2D position)
+Entity *player_spawn(Vector2D position, int type)
 {
     Entity *ent;
     ent = entity_new();
@@ -34,6 +34,21 @@ Entity *player_spawn(Vector2D position)
     ent->number_of_collectables = 0;
     ent->health = 3;
     ent->maxHealth = 3;
+    ent->laneSkip = false;
+
+    if (type == 1)
+    {
+        ent->health = 5;
+    }
+    if (type == 2)
+    {
+        ent->laneSkip = true;
+    }
+    if (type == 3)
+    {
+        ent->maxHealth = 4;
+    }
+
     return ent;
 }
 
@@ -104,9 +119,18 @@ void player_think(Entity *self)
     }
      */
 
-    if (keys[SDL_SCANCODE_1] && self->position.y == middleLane)self->position.y = topLane;
-    if (keys[SDL_SCANCODE_2])self->position.y = middleLane;
-    if (keys[SDL_SCANCODE_3] && self->position.y == middleLane)self->position.y = bottomLane;
+    if (self->laneSkip == true)
+    {
+        if (keys[SDL_SCANCODE_1])self->position.y = topLane;
+        if (keys[SDL_SCANCODE_2])self->position.y = middleLane;
+        if (keys[SDL_SCANCODE_3])self->position.y = bottomLane;
+    }
+    else if (self->laneSkip == false)
+    {
+        if (keys[SDL_SCANCODE_1] && self->position.y == middleLane)self->position.y = topLane;
+        if (keys[SDL_SCANCODE_2])self->position.y = middleLane;
+        if (keys[SDL_SCANCODE_3] && self->position.y == middleLane)self->position.y = bottomLane;
+    }
 }
 
 /**/

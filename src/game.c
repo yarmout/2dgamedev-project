@@ -25,6 +25,22 @@ static int _done = 0;
 static Window *_quit = NULL;
 Level *level;
 
+void penguinZero(void *data)
+{
+    player_spawn(vector2d(0,512), 0);
+}
+void penguinOne(void *data)
+{
+    player_spawn(vector2d(0,512), 1);
+}
+void penguinTwo(void *data)
+{
+    player_spawn(vector2d(0,512), 2);
+}
+void penguinThree(void *data)
+{
+    player_spawn(vector2d(0,512), 3);
+}
 void onCancel(void *data)
 {
     _quit = NULL;
@@ -40,18 +56,18 @@ void mainMenu(void *data)
 }
 void levelOne(void *data)
 {
+    window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/a_level.json");
-    player_spawn(vector2d(0,512));
 }
 void levelTwo(void *data)
 {
+    window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/b_level.json");
-    player_spawn(vector2d(0,512));
 }
 void levelThree(void *data)
 {
+    window_penguin_selector("Penguin Selector", penguinZero, penguinOne, penguinTwo, penguinThree, NULL,NULL,NULL,NULL);
     level = level_load("levels/c_level.json");
-    player_spawn(vector2d(0,512));
 }
 void onPlay(void *data)
 {
