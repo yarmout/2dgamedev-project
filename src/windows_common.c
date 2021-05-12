@@ -249,11 +249,12 @@ int level_selector_update(Window *win, List *updateList)
     return 0;
 }
 
-Window *window_level_selector(char *text, void(*onOne)(void *),void(*onTwo)(void *),void(*onThree)(void *),void *oneData,void *twoData,void *threeData)
+Window *window_level_selector(char *text, void(*onOne)(void *),void(*onTwo)(void *),void(*onThree)(void *),void(*onFour)(void *),void(*onFive)(void *),void *oneData,void *twoData,void *threeData,void *fourData,void *fiveData, int secret)
 {
     Window *win;
     List *callbacks;
-    win = gf2d_window_load("config/level_selector_window.json");
+    if (secret == 1)win = gf2d_window_load("config/s_level_selector_window.json");
+    else win = gf2d_window_load("config/level_selector_window.json");
     if (!win)
     {
         slog("failed to load level selector window");
